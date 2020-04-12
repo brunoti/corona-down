@@ -1,0 +1,39 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "unicorn"],
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:unicorn/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "rules": {
+    "semi": ["error", "always"],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": 1,
+    "@typescript-eslint/no-inferrable-types": [
+      "warn", {
+        "ignoreParameters": true
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": "warn",
+    "unicorn/explicit-length-check": 0,
+    "unicorn/filename-case": 0,
+    "unicorn/new-for-builtins": 0,
+    "unicorn/no-unused-properties": 0,
+    "unicorn/prefer-type-error": 0,
+    "unicorn/prevent-abbreviations": 0,
+    "@typescript-eslint/camelcase": ["warn", { "properties": "never" }],
+    "unicorn/catch-error-name": [
+      "error",
+      {
+        "name": "error"
+      }
+    ]
+  }
+}
+
+# vim:ft=json

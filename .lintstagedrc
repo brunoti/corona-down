@@ -1,0 +1,7 @@
+{
+  "**/*.+(js|jsx|ts|tsx|json|css)": [
+    "yarn lint"
+  ]
+}
+
+# vim:ft=json

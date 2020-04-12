@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "rootDir": ".",
+    "paths": {
+      "*": ["*"]
+    },
+    "target": "esnext",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "allowJs": false,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "noEmit": true,
+    "incremental": true,
+    "types": ["koa", "knex", "objection"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}

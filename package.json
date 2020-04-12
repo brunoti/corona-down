@@ -1,0 +1,31 @@
+{
+  "name": "corona-down",
+  "private": true,
+  "version": "0.0.0",
+  "license": "MIT",
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "android": "yarn workspace mobile android",
+    "ios": "yarn workspace mobile ios",
+    "studio": "yarn workspace mobile studio",
+    "xcode": "yarn workspace mobile xcode",
+    "lint": "yarn workspaces run lint",
+    "start:prod": "yarn workspace backend start:prod",
+    "start:dev": "yarn workspace backend start:dev"
+  },
+  "nohoist": [
+    "mobile/react-native"
+   ],
+  "dependencies": {
+    "husky": "^4.2.5",
+    "lint-staged": "^10.1.3",
+    "react-native": "*"
+  },
+  "devDependencies": {
+    "typescript": "3.7.5"
+  }
+}
