@@ -1,11 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {PermissionsAndroid, Text} from 'react-native';
 import {useAsyncStorage} from '@react-native-community/async-storage';
-import Geolocation from '@react-native-community/geolocation';
+
+import useGeolocation from './containers/Geolocation';
 
 const HomeView = () => {
   const [permission, setPermission] = useState<boolean>(false);
   const {getItem, mergeItem} = useAsyncStorage('location');
+
+  const [error, location] = useGeolocation();
 
   const requestLocationPermission = async () => {
     try {
@@ -33,6 +36,12 @@ const HomeView = () => {
     requestLocationPermission();
   }, [permission]);
 
+  useEffect(() => {
+    console.log('location', location);
+    console.log('error', error);
+    writeItemToStorage(location);
+  });
+
   const writeItemToStorage = async (newValue: any) => {
     let currentValue: string = await getItem();
     currentValue = JSON.parse(currentValue);
@@ -42,29 +51,13 @@ const HomeView = () => {
     await mergeItem(JSON.stringify(newValue));
   };
 
-  useEffect(() => {
-    Geolocation.watchPosition(
-      ({coords, timestamp}) => {
-        writeItemToStorage([
-          {
-            lat: coords.latitude,
-            lng: coords.longitude,
-            timestamp,
-          },
-        ]);
-      },
-      (error) => {
-        console.log('error', error);
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 1500,
-        maximumAge: 0,
-      },
-    );
-  }, []);
-
-  return <Text>Teste</Text>;
+  return (
+    <>
+      <Text>Latitude:{location.lat}</Text>
+      <Text>Longitude:{location.lng}</Text>
+      <Text>Erro:{error}</Text>
+    </>
+  );
 };
 
 export default HomeView;
