@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import Geolocation from '@react-native-community/geolocation';
+import Geolocation from 'react-native-geolocation-service';
 
 interface GeolocationData {
   lat: number;
@@ -8,7 +8,7 @@ interface GeolocationData {
 }
 
 const useGeolocation = () => {
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string>('');
   const [state, setState] = useState<GeolocationData>({
     lat: 0,
     lng: 0,
@@ -27,9 +27,8 @@ const useGeolocation = () => {
       },
       (err) => setError(err.message),
       {
-        enableHighAccuracy: false,
-        timeout: 15000,
-        maximumAge: 0,
+        enableHighAccuracy: true,
+        interval: 10000,
       },
     );
 

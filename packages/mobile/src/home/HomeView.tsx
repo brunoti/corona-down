@@ -1,12 +1,18 @@
 import React, {useState, useEffect} from 'react';
-import {PermissionsAndroid, Text} from 'react-native';
+import {PermissionsAndroid, Text, ScrollView} from 'react-native';
 import {useAsyncStorage} from '@react-native-community/async-storage';
 
 import useGeolocation from './containers/Geolocation';
 
+interface GeolocationData {
+  lat: number;
+  lng: number;
+  timestamp: number;
+}
+
 const HomeView = () => {
   const [permission, setPermission] = useState<boolean>(false);
-  const {getItem, mergeItem} = useAsyncStorage('location');
+  const {getItem, setItem} = useAsyncStorage('location');
 
   const [error, location] = useGeolocation();
 
@@ -38,25 +44,33 @@ const HomeView = () => {
 
   useEffect(() => {
     console.log('location', location);
-    console.log('error', error);
-    writeItemToStorage(location);
+
+    if (location.timestamp !== 0) {
+      writeItemToStorage(location);
+    }
   });
 
   const writeItemToStorage = async (newValue: any) => {
-    let currentValue: string = await getItem();
-    currentValue = JSON.parse(currentValue);
+    // await removeItem();
+    let currentValue: string | null = await getItem();
+    // setLocationLog(currentValue);
     console.log('currentValue', currentValue);
-    newValue = [...currentValue, ...newValue];
-    console.log('newValue', JSON.stringify(newValue));
-    await mergeItem(JSON.stringify(newValue));
+    if (currentValue) {
+      let locationArray = JSON.parse(currentValue);
+      locationArray.push(newValue);
+      await setItem(JSON.stringify(locationArray));
+    } else {
+      await setItem(JSON.stringify([newValue]));
+    }
   };
 
   return (
-    <>
+    <ScrollView>
       <Text>Latitude:{location.lat}</Text>
       <Text>Longitude:{location.lng}</Text>
       <Text>Erro:{error}</Text>
-    </>
+      <Text>Log:</Text>
+    </ScrollView>
   );
 };
 
