@@ -5,10 +5,15 @@
   "license": "MIT",
   "scripts": {
     "build-ts": "tsc",
+    "ts-node": "ts-node -r tsconfig-paths/register",
     "lint": "eslint \"**/*.{js,ts}\" --quiet --fix",
     "start:dev": "nodemon src/server.ts",
     "prestart:prod": "yarn build-ts",
-    "start:prod": "node dist/server.js"
+    "start:prod": "node dist/server.js",
+    "seed:config": "yarn ts-node ../../node_modules/typeorm-seeding/dist/cli.js config",
+    "seed:run": "yarn ts-node ../../node_modules/typeorm-seeding/dist/cli.js seed",
+    "schema:drop": "yarn ts-node ../../node_modules/typeorm/cli.js schema:drop",
+    "schema:sync": "yarn ts-node ../../node_modules/typeorm/cli.js schema:sync"
   },
   "devDependencies": {
     "@types/koa": "^2.11.3",
@@ -35,7 +40,9 @@
   },
   "dependencies": {
     "@koa/cors": "^3.0.0",
+    "@koa/router": "^9.0.0",
     "@types/koa-compress": "^2.0.9",
+    "@types/koa__router": "^8.0.2",
     "bcrypt": "^4.0.1",
     "dotenv": "^8.2.0",
     "eslint-plugin-unicorn": "^18.0.1",
@@ -54,6 +61,9 @@
     "reflect-metadata": "^0.1.13",
     "strip-ansi": "^6.0.0",
     "type-fest": "^0.13.1",
-    "typeorm": "^0.2.24"
+    "typeorm": "^0.2.24",
+    "typeorm-naming-strategies": "^1.1.0",
+    "typeorm-seeding": "^1.4.4",
+    "unique-string": "^2.0.0"
   }
 }

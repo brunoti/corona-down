@@ -15,7 +15,11 @@
     "xcode": "yarn workspace mobile xcode",
     "lint": "yarn workspaces run lint",
     "start:prod": "yarn workspace backend start:prod",
-    "start:dev": "yarn workspace backend start:dev"
+    "start:dev": "yarn workspace backend start:dev",
+    "seed:config": "yarn workspace backend seed:config",
+    "seed:run": "yarn workspace backend seed:run",
+    "schema:drop": "yarn workspace backend schema:drop",
+    "schema:sync": "yarn workspace backend schema:sync"
   },
   "nohoist": [
     "mobile/react-native"
